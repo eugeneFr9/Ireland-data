@@ -10,13 +10,13 @@ const pages = [
 
 ]
 
-Promise.all(
-  pages.forEach(page => {
-    return pageScrape(page)
-  })
-)
-  .then(data => data.map(dataArray => {
-    console.log(dataArray)
-  })
-  )
-  .catch(error => console.log(error.message))
+
+pages.forEach(async page => {
+  try {
+    await pageScrape(page)
+  }
+
+  catch (e) {
+    console.log(e)
+  }
+})
