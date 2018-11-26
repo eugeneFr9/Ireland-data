@@ -9,10 +9,14 @@ const pages = [
   'https://www.daft.ie/dublin-city/houses-for-sale/?offset=100'
 
 ]
+
 Promise.all(
   pages.forEach(page => {
-    pageScrape(page)
+    return pageScrape(page)
   })
 )
-  .then(data =>
-    console.log(data))
+  .then(data => data.map(dataArray => {
+    console.log(dataArray)
+  })
+  )
+  .catch(error => console.log(error.message))

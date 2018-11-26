@@ -10,11 +10,12 @@ const houseScrape = function (uri) {
       const housePriceIndex = $('.PropertyInformationCommonStyles__costAmountCopy').text().indexOf('€')
       const housePrice = $('.PropertyInformationCommonStyles__costAmountCopy').text().slice(housePriceIndex + 1)
       const indexHouseSize = $('.PropertyOverview__propertyOverviewDetails').text().indexOf('Area')
-      const houseSize = $('.PropertyOverview__propertyOverviewDetails').text().substr(indexHouseSize).split(':')[1].trim().split(' ')[0]
+      const houseSize = indexHouseSize !== -1 ? $('.PropertyOverview__propertyOverviewDetails').text().substr(indexHouseSize).split(':')[1].trim().split(' ')[0] : null;
       return {
         address: houseAddress,
         price: housePrice,
-        size: houseSize
+        size: houseSize,
+        type: 'house'
       }
 
     })
