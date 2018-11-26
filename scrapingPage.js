@@ -11,7 +11,7 @@ const pageScrape = function (url) {
       const length = $('.PropertyCardContainer__container > a').length
       console.log(length)
       const urlHouses = []
-      for (let i = 0; i < 19; i++) {
+      for (let i = 0; i < length; i++) {
         urlHouses.push($('.PropertyCardContainer__container > a')[i].attribs.href)
       }
       return Promise.all(
