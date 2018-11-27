@@ -21,10 +21,10 @@ const pageScrape = function (url) {
       )
     })
     .then(houses => {
-      const info = houses.map(house =>
+      houses.map(house =>
         //console.log(houses.indexOf(house), house))
-      JSON.stringify(house))
-      fs.appendFileSync('./houses.json', info)
+        console.log(JSON.stringify(house)))
+
     }
 
     )
