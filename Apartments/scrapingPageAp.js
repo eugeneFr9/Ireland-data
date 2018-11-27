@@ -1,8 +1,6 @@
 const rs = require('request-promise')
 const cheerio = require('cheerio')
 const apartmentScrape = require('./scrapingApartment')
-const fs = require('fs')
-
 
 
 const pageScrapeAp = function (url) {

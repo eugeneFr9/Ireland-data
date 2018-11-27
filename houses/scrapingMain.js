@@ -1,4 +1,3 @@
-const rs = require('request-promise');
 const pageScrape = require('./scrapingPage')
 const pages = [
   'https://www.daft.ie/dublin-city/houses-for-sale/',
