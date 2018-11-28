@@ -1,22 +1,19 @@
 const rs = require('request-promise')
 const cheerio = require('cheerio')
-const houseScrape = require('./scrapingHouse')
-const fs = require('fs')
-
-
+const itemScrape = require('./scrapingItem')
 
 const pageScrape = function (url) {
   return rs(url)
     .then(function (html) {
       const $ = cheerio.load(html)
       const length = $('.PropertyCardContainer__container > a').length
-      const urlHouses = []
+      const urlProperty = []
       for (let i = 0; i < length; i++) {
-        urlHouses.push($('.PropertyCardContainer__container > a')[i].attribs.href)
+        urlProperty.push($('.PropertyCardContainer__container > a')[i].attribs.href)
       }
       return Promise.all(
-        urlHouses.map(url => {
-          return houseScrape('https://www.daft.ie' + url)
+        urlProperty.map(url => {
+          return itemScrape('https://www.daft.ie' + url)
         })
       )
     })

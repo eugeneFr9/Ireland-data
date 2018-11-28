@@ -2,7 +2,7 @@ const rs = require('request-promise');
 const cheerio = require('cheerio');
 
 
-const houseScrape = function (uri) {
+const itemScrape = function (uri) {
   return rs(uri)
     .then(function (html) {
       //map house properties
@@ -12,11 +12,17 @@ const houseScrape = function (uri) {
       const price = $('.PropertyInformationCommonStyles__costAmountCopy').text().slice(housePriceIndex + 1)
       const indexHouseSize = $('.PropertyOverview__propertyOverviewDetails').text().indexOf('Area')
       const size = indexHouseSize !== -1 ? $('.PropertyOverview__propertyOverviewDetails').text().substr(indexHouseSize).split(':')[1].trim().split(' ')[0] : null;
+      let type;
+      if (uri.indexOf('house') === -1) {
+        type = true
+      } else {
+        type = false
+      }
       return {
         address,
         price,
         size,
-        type: 'house'
+        isApartment: type
       }
 
     })
@@ -26,4 +32,4 @@ const houseScrape = function (uri) {
 }
 
 
-module.exports = houseScrape
+module.exports = itemScrape
