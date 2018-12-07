@@ -9,7 +9,7 @@ const itemScrape = function (uri) {
       const $ = cheerio.load(html)
       const address = $('.PropertyMainInformation__address').text();
       const housePriceIndex = $('.PropertyInformationCommonStyles__costAmountCopy').text().indexOf('€')
-      const price = $('.PropertyInformationCommonStyles__costAmountCopy').text().slice(housePriceIndex + 1)
+      const price = housePriceIndex !== -1 ? $('.PropertyInformationCommonStyles__costAmountCopy').text().slice(housePriceIndex + 1) : null;
       const indexHouseSize = $('.PropertyOverview__propertyOverviewDetails').text().indexOf('Area')
       const size = indexHouseSize !== -1 ? $('.PropertyOverview__propertyOverviewDetails').text().substr(indexHouseSize).split(':')[1].trim().split(' ')[0] : null;
       let type;
