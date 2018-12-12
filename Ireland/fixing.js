@@ -29,17 +29,19 @@ const normalization = async (data) => {
   const validHouses = data.filter(validateHouses)
   for (const el of validHouses) {
     try {
-      el.location.coordinates = { lat: '', lng: '' }
-      el.link = el.url
-      delete el.url
-      el.size.rooms = Number(el.size.rooms),
-        el.size.gross_m2 = Number(el.size.gross_m2),
-        el.price.value = Number(el.price.value.replace(/,/g, '.')),
-        el.description = el.description.replace(/\n/g, '').trim();
-      const extraCoordinates = await addExtraCoordinates(el)
+      el.location.coordinates = { lat: '', lng: '' };
+      el.link = el.url;
+      delete el.url;
+      el.size.rooms = Number(el.size.rooms);
+      el.size.parcel_m2 = null;
+      el.size.net_m2 = null;
+      el.size.gross_m2 = Number(el.size.gross_m2);
+      el.price.value = Number(el.price.value.replace(/,/g, ''));
+      el.description = null;
+      const extraCoordinates = await addExtraCoordinates(el);
       el.location.coordinates.lat = Number(extraCoordinates.latt);
       el.location.coordinates.lng = Number(extraCoordinates.longt);
-      el.market_date = el.market_date.replace(/./g, '-')
+      el.market_date = el.market_date
     } catch (error) {
       console.log(error)
     }
@@ -50,9 +52,10 @@ function insertIntoDB(data) {
   var connection = mysql.createConnection({
     multipleStatements: true,
     host: 'localhost',
-    user: 'user2',
-    password: '12345',
+    user: 'root',
+    password: 'MarcelLems2018',
     database: 'houses',
+    debug: true,
     port: 3306
   });
 
@@ -61,6 +64,7 @@ function insertIntoDB(data) {
   data.forEach(house => {
 
     const ObjectInsert = {
+      House_id: Math.random().toString().slice(2, 15),
       Link: house.link,
       Country: house.location.country,
       City: house.location.city,
@@ -77,7 +81,7 @@ function insertIntoDB(data) {
       Title: house.title,
       Market_date: house.market_date
     };
-
+    console.log(JSON.stringify(ObjectInsert))
     connection.query('INSERT INTO houses_ireland SET ?', ObjectInsert, function (error, results, fields) {
       if (error) { throw error };
     });
@@ -87,9 +91,9 @@ function insertIntoDB(data) {
       const objectImageInsert = {
         Img_id: Math.random().toString().slice(2, 10),
         Img_link: image,
-        House_link: ObjectInsert.Link
+        House_id: ObjectInsert.House_id
       }
-
+      console.log(JSON.stringify(objectImageInsert))
       connection.query('INSERT INTO images SET ?', objectImageInsert, function (error, results, fields) {
         if (error) { throw error };
       });
