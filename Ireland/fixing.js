@@ -53,7 +53,7 @@ function insertIntoDB(data) {
     multipleStatements: true,
     host: 'localhost',
     user: 'root',
-    password: 'MarcelLems2018',
+    password: '1111',
     database: 'houses',
     debug: true,
     port: 3306
