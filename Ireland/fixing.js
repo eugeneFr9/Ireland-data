@@ -38,9 +38,11 @@ const normalization = async (data) => {
       el.size.gross_m2 = Number(el.size.gross_m2);
       el.price.value = Number(el.price.value.replace(/,/g, ''));
       el.description = null;
-      const extraCoordinates = await addExtraCoordinates(el);
-      el.location.coordinates.lat = Number(extraCoordinates.latt);
-      el.location.coordinates.lng = Number(extraCoordinates.longt);
+      const extractCoordinates = await addExtraCoordinates(el);
+      const lat = Number(extractCoordinates.latt);
+      const lng = Number(extractCoordinates.longt);
+      el.location.coordinates.lat = lat < 90 && lat > -90 ? lat : null;
+      el.location.coordinates.lng = lng < 180 && lng > -180 ? lng : null;
       el.market_date = el.market_date
     } catch (error) {
       console.log(error)
@@ -52,8 +54,8 @@ function insertIntoDB(data) {
   var connection = mysql.createConnection({
     multipleStatements: true,
     host: 'localhost',
-    user: 'root',
-    password: '1111',
+    user: 'user1',
+    password: '12345',
     database: 'houses',
     debug: true,
     port: 3306
@@ -82,7 +84,7 @@ function insertIntoDB(data) {
       Market_date: house.market_date
     };
     console.log(JSON.stringify(ObjectInsert))
-    connection.query('INSERT INTO houses_ireland SET ?', ObjectInsert, function (error, results, fields) {
+    connection.query('INSERT INTO Houses_Ireland SET ?', ObjectInsert, function (error, results, fields) {
       if (error) { throw error };
     });
 
@@ -94,7 +96,7 @@ function insertIntoDB(data) {
         House_id: ObjectInsert.House_id
       }
       console.log(JSON.stringify(objectImageInsert))
-      connection.query('INSERT INTO images SET ?', objectImageInsert, function (error, results, fields) {
+      connection.query('INSERT INTO Images SET ?', objectImageInsert, function (error, results, fields) {
         if (error) { throw error };
       });
     })
