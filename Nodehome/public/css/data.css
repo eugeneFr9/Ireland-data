@@ -1,0 +1,25 @@
+.data-form {
+    width: 20rem;
+    max-width: 90%;
+    margin: auto;
+}
+
+.data-item {
+    width: 20rem;
+    max-width: 95%;
+}
+
+.data__title {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.data__price {
+    text-align: center;
+    color: #4d4d4d;
+    margin-bottom: 0.5rem;
+}
+
+.data__description {
+    text-align: center;
+}

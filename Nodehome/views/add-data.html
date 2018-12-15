@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Add Product</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
+    <link rel="stylesheet" href="/css/data.css" />
+  </head>
+
+  <body>
+    <header class="main-header">
+      <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+          <li class="main-header__item"><a href="/">Main page</a></li>
+          <li class="main-header__item">
+            <a class="active" href="/admin/add-data">Add Data</a>
+          </li>
+          <li class="main-header__item">
+            <a href="/searchData">SearchData</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <form class="data-form" action="/admin/add-data" method="POST">
+        <div class="form-control">
+          <label for="link">Link to API</label>
+          <input type="text" name="link" id="link" />
+          <label for="message">Enter JSON</label>
+          <textarea id="message" name="message"></textarea>
+        </div>
+        <button class="btn" type="submit">Add your contribution</button>
+      </form>
+    </main>
+  </body>
+</html>

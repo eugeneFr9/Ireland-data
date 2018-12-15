@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title #{docTitle}
+    link(rel="stylesheet", href="/css/main.css")
+    link(rel="stylesheet", href="/css/product.css")
+
+  body
+    header.main-header
+      nav.main-header__nav
+        ul.main-header__item-list
+        li.main-header__item
+          a.active(href="/") Main
+        li.main-header__item
+          a(href="/admin/add-data") Add data
+  main
+    .grid
+      article.card.data-item
+        header.card__header
+          h1.data__title
+        div.card_content
+          h2.data_price
+          p.data_rooms
+        div.card_location
+          h2.data_address
