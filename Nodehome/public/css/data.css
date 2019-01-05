@@ -1,25 +1,26 @@
-.data-form {
-    width: 20rem;
-    max-width: 90%;
-    margin: auto;
+#table_properties {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  width: 100%;
 }
 
-.data-item {
-    width: 20rem;
-    max-width: 95%;
+#table_properties td,
+#table_properties th {
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
-.data__title {
-    font-size: 1.2rem;
-    text-align: center;
+#table_properties tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
-.data__price {
-    text-align: center;
-    color: #4d4d4d;
-    margin-bottom: 0.5rem;
+#table_properties tr:hover {
+  background-color: #ddd;
 }
 
-.data__description {
-    text-align: center;
+#table_properties th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4caf50;
+  color: white;
 }

@@ -4,9 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Add Product</title>
+    <title>Add Data</title>
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/data.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.13/jquery-sortable-min.js"></script>
   </head>
 
   <body>
@@ -19,22 +22,21 @@
           <li class="main-header__item">
             <a href="/admin/add-data">Add data</a>
           </li>
-          <li class="main-header__item">
-            <a href="/searchData">SearchData</a>
-          </li>
         </ul>
       </nav>
     </header>
 
     <main>
-      <form action="/searchData" method="GET">
-        <select id="city_select">
-          <option value=""></option>
-          <option value="Dublin">Dublin</option>
-          <option value="Amsterdam">Amsterdam</option>
-        </select>
-        <button type="submit">Show Houses</button>
-      </form>
+      <select id="city_select">
+        <option value=""></option>
+        <option value="Dublin">Dublin</option>
+        <option value="Amsterdam">Amsterdam</option>
+      </select>
+      <button>Show Houses</button>
+
+      <canvas id="myChart"></canvas>
+
+      <div id="table_properties"></div>
       <!--
         <div class="grid">
             <article class="card product-item">
@@ -55,30 +57,6 @@
         </div>
       -->
     </main>
-    <script>
-      console.log(document.querySelector("form").action);
-      let select = document.getElementById("city_select");
-      select.addEventListener("change", function(e) {
-        console.log(e.target.value);
-        document.querySelector("form").action;
-        +"?city="; // + e.target.value;
-        console.log(document.querySelector("form").action);
-      });
-      async function getData(city) {
-        options = {
-          method: "GET"
-        };
-        await fetch("/searchData?city=" + city, options);
-      }
-      document.querySelector("button").addEventListener("click", async () => {
-        await getData(document.getElementById("city_select").value);
-      });
-      /* const button = document
-        .querySelector("button")
-        .addEventListener("click", function() {
-          fetch("http://localhost:3000/searchData", option);
-        });
-        */
-    </script>
+    <script src="/js/client.js"></script>
   </body>
 </html>

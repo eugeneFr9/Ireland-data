@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS Houses_Ireland;
 CREATE TABLE Houses_Ireland (
-House_id varchar(255) NOT NULL,
 Link varchar(255) NOT NULL,
 Country varchar(255) NOT NULL,
 City varchar(255) NOT NULL,
@@ -16,13 +15,13 @@ Currency varchar(255) DEFAULT NULL,
 Description_ varchar(255) DEFAULT NULL,
 Title varchar(255) DEFAULT NULL,
 Market_date date,
-PRIMARY KEY (House_id)
+PRIMARY KEY (Link)
 );
 
 DROP TABLE IF EXISTS Images;
 CREATE TABLE Images (
   Img_id varchar(255) NOT NULL,
   Img_link varchar(255) NOT NULL,
-  House_id varchar(255) NOT NULL,
+  House_link varchar(255) NOT NULL,
   PRIMARY KEY (Img_id)
 );

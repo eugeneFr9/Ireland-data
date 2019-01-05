@@ -21,7 +21,7 @@ router.post("/add-data", (req, res, next) => {
     try {
       const data = JSON.parse(req.body.message);
       main(data);
-      res.json({ report });
+      res.render("report", { report });
     } catch (err) {
       console.log(err);
       res.status(400).end();
@@ -29,17 +29,26 @@ router.post("/add-data", (req, res, next) => {
   } else if (req.body.link && validator.isURL(req.body.link)) {
     try {
       (async link => {
-        const data = JSON.parse(await r(link));
-        main(data);
+        try {
+          const data = JSON.parse(await r(link));
+          main(data);
+          res.render("report", { report });
+        } catch (error) {
+          console.log(error);
+        }
       })(req.body.link);
     } catch (err) {
       console.log(err);
       res.status(400).end();
     }
   } else if (req.body.link && req.body.message) {
-    res.status(400).json({ message: "Only one field should be filled in" });
+    res
+      .status(400)
+      .render("report1", { message: "Only one field should be filled in" });
   } else {
-    res.status(400).json({ message: "invalid input or empty fields" });
+    res
+      .status(400)
+      .render("report1", { message: "invalid input or empty fields" });
   }
 });
 

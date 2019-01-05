@@ -85,9 +85,6 @@ const normalization = data => {
 const dbInsert = data => {
   data.forEach(house => {
     const insertHouse = {
-      House_id: Math.random()
-        .toString()
-        .slice(2, 15),
       Link: house.link,
       Country: house.location.country,
       City: house.location.city,
@@ -122,7 +119,7 @@ const dbInsert = data => {
               .toString()
               .slice(2, 10),
             Img_link: image,
-            House_id: insertHouse.House_id
+            House_link: insertHouse.Link
           };
           connection.query("INSERT INTO Images", insertImages, function(
             err,
@@ -138,8 +135,8 @@ const dbInsert = data => {
   });
 };
 const main = data => {
-  data.filter(checkURL);
-  const checkedData = data.filter(checkFields);
+  const newData = data.filter(checkURL);
+  const checkedData = newData.filter(checkFields);
   const dataPreparedDB = normalization(checkedData);
   report.valid = checkedData.length;
   report.failedTotal = data.length - checkedData.length;

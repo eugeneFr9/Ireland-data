@@ -1,10 +1,10 @@
+// 'https://api.apify.com/v1/execs/qA3fqEsmvijPDeJ4e/results?format=json&simplified=1"
 const r = require("request-promise");
-const connection = require("./Nodehome/database.js").connection;
+const connection = require("../Nodehome/database.js").connection;
 const url =
-  "https://api.apify.com/v1/execs/qA3fqEsmvijPDeJ4e/results?format=json&simplified=1";
+  "https://api.apify.com/v1/execs/5rpdzP6jP9Px2xuWB/results?format=json&simplified=1";
 const fs = require("fs");
 const convertDate = require("../experiment.js");
-const mysql = require("mysql");
 async function addExtraCoordinates(el) {
   try {
     const addressForCoordinates = el.location.address;
@@ -67,9 +67,6 @@ const normalization = async data => {
 function insertIntoDB(data) {
   data.forEach(house => {
     const ObjectInsert = {
-      House_id: Math.random()
-        .toString()
-        .slice(2, 15),
       Link: house.link,
       Country: house.location.country,
       City: house.location.city,
@@ -86,15 +83,15 @@ function insertIntoDB(data) {
       Title: house.title,
       Market_date: house.market_date
     };
-    connection.query("INSERT INTO Houses_Ireland SET ?", ObjectInsert, function(
-      error,
-      results,
-      fields
-    ) {
-      if (error) {
-        throw error;
+    connection.query(
+      "REPLACE INTO Houses_Ireland SET ?",
+      ObjectInsert,
+      function(error, results, fields) {
+        if (error) {
+          throw error;
+        }
       }
-    });
+    );
 
     house.images.forEach(image => {
       const objectImageInsert = {
@@ -102,9 +99,9 @@ function insertIntoDB(data) {
           .toString()
           .slice(2, 10),
         Img_link: image,
-        House_id: ObjectInsert.House_id
+        House_link: ObjectInsert.Link
       };
-      connection.query("INSERT INTO Images SET ?", objectImageInsert, function(
+      connection.query("REPLACE INTO Images SET ?", objectImageInsert, function(
         error,
         results,
         fields
@@ -115,7 +112,7 @@ function insertIntoDB(data) {
       });
     });
   });
-
+  //connection.query("CREATE TABLE IF NOT EXISTS Stats SELECT Market_date AS Date, COUNT(Links) AS Quantity, SUM(Value_) AS Total_Price FROM Houses_Ireland GROUP BY Market_date")
   connection.end();
 }
 
